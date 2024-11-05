@@ -5,22 +5,133 @@ function lineBreak(father, manylb) {
 		father.appendChild(lb);
 	}
 }
+function address(){
+	let address = document.getElementById("direccion").value;
 
 
-function limitations() {
-	let forceImput = document.getElementById("name").value;
 
-	if (!(forceImput[0] === forceImput[0].toUpperCase())) {
+
+
+
+
+
+
+}
+/*
+id.value = CALLE/ ALEJANDRO, 23, BAJO 1, 28000, MADRID, ESPAÑA
+arr = CALLE, AVENIDA, VIA, BULEVAR...
+
+split => id.value
+
+comparar splitead[0] = tipoVIA[i]
+
+splitedo[]
+*/
+
+/* ^(?=.[A-Za-z])(?=.\d)(?=.[@$!%#?&])[A-Za-z\d@$!%*#?&]{8,20}$ */
+function forcePassword() {
+	let forceInput = document.getElementById("password").value;
+	let limitations = /^(?=.*[A-Z])(?=.*[a-z])(?=(.*\d){2,})(?=.*[@$#!%*?&])[A-Za-z\d@$#!%*?&]{8,20}$/;
+
+	if (!limitations.test(forceInput)) {
+		event.preventDefault();
+		alert("La contraseña no cumple con el estándar");
+	}
+}
+
+function forceDNI() {
+	let forceInput = document.getElementById("dni").value;
+
+	if(checkDNI(forceInput) !=  true) {
+		event.preventDefault();
+		alert("Documento no válido");
+	}
+}
+
+function checkDNI(value){
+
+	let validChars = 'TRWAGMYFPDXBNJZSQVHLCKET';
+	let nifRexp = /^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]$/i;
+	let nieRexp = /^[XYZ][0-9]{7}[TRWAGMYFPDXBNJZSQVHLCKET]$/i;
+	let str = value.toString().toUpperCase();
+  
+	if (!nifRexp.test(str) && !nieRexp.test(str)) return false;
+  
+	let nie = str
+		.replace(/^[X]/, '0')
+		.replace(/^[Y]/, '1')
+		.replace(/^[Z]/, '2');
+  
+	let letter = str.substr(-1);
+	// Encuentra el resto de los 8 números para después localizar la letra en validChars
+	let charIndex = parseInt(nie.substr(0, 8)) % 23;
+
+	//Y aquí compara si la letra final es la que coincide en el orden del validChars
+	if (validChars.charAt(charIndex) === letter) return true;
+
+	return false;
+  }
+
+function forceConfirmEmail() {
+	let inputEmail = document.getElementById("confirmEmail").value;
+	let inputEmail2 = document.getElementById("email").value;
+
+	if (!(inputEmail2)) {
+		return ;
+	}
+	if (!(inputEmail == inputEmail2)) {
+		event.preventDefault();
+		alert("Lo correos no coinciden.");
+	}
+}
+
+function forceEmail() {
+	let forceInput = document.getElementById("email").value;
+	let emailLimit = /^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$/;
+
+	if (!(emailLimit.test(forceInput))) {
+		event.preventDefault();
+		alert("No es válido el correo electronico");
+		return;
+	}
+}
+
+function forceSurname() {
+	let forceInput = document.getElementById("apellido").value;
+
+	if (!(forceInput[0] === forceInput[0].toUpperCase())) {
+		alert("El apellido ha de empezar por mayúsculas")
+	}
+	for (let i = 0; i < forceInput.length; i++) {
+		if (!(isNaN(forceInput[i]))) {
+			alert("No es válido un número en apellido");
+			return;
+		}
+	}
+}
+
+
+function forceName() {
+	let forceInput = document.getElementById("name").value;
+
+	if (!(forceInput[0] === forceInput[0].toUpperCase())) {
 		alert("El nombre ha de empezar por mayúsculas")
 	}
-	for (let i = 0; i < forceImput.length; i++) {
-		if (!(Number.isNaN(forceImput[i]))) {
-			alert("No es válido un número");
+	for (let i = 0; i < forceInput.length; i++) {
+		if (!(isNaN(forceInput[i]))) {
+			alert("No es válido un número en nombre");
 			return;
-
 		}
-
 	}
+}
+
+function limitations() {
+	forceName();
+	forceSurname();
+	forceEmail();
+	forceConfirmEmail();
+	forceDNI();
+	forcePassword();
 }
 
 function form() {
@@ -67,7 +178,7 @@ function form() {
 	inputEmail.setAttribute("type", "email");
 	inputEmail.setAttribute("id", "email");
 	inputEmail.setAttribute("required", true);
-	inputEmail.setAttribute("pattern", "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$");
+	//inputEmail.setAttribute("pattern", "/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/");
 	inputEmail.setAttribute("placeholder", "eMail");
 
 	let labelConfirmEmail = document.createElement("label");
@@ -77,7 +188,7 @@ function form() {
 	inputConfirmEmail.setAttribute("type", "email");
 	inputConfirmEmail.setAttribute("id", "confirmEmail");
 	inputConfirmEmail.setAttribute("required", true);
-	inputConfirmEmail.setAttribute("pattern", "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$");
+	//inputConfirmEmail.setAttribute("pattern", "/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/");
 	inputConfirmEmail.setAttribute("placeholder", "Confirmar eMail");
 
 	let labelDni = document.createElement("label");
@@ -107,6 +218,12 @@ function form() {
 	inputPassWord.setAttribute("id", "password");
 	inputPassWord.setAttribute("required", true);
 	inputPassWord.setAttribute("placeholder", "Contraseña");
+	
+	let inputSend = document.createElement("input");
+	inputSend.setAttribute("type", "submit");
+	inputSend.setAttribute("value", "Enviar");
+	inputSend.setAttribute("id", "btnSubmit");
+	inputSend.setAttribute("onclick", "limitations()")
 
 	// Creamos los APPENDCHILD
 	crearFormulario.appendChild(divL1);
@@ -145,6 +262,8 @@ function form() {
 	divL4.appendChild(inputPassWord);
 	lineBreak(crearFormulario, 2);
 
+	crearFormulario.appendChild(inputSend);
+
 
 
 	document.body.appendChild(crearFormulario);  //  Agregamos el formulario al body
@@ -154,12 +273,4 @@ function form() {
 }
 
 form();
-
-function limitations() {
-	event.preventDefault()
-
-	let forceImput = document.getElementById("name").ariaValueMax;
-	let chartMayus = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-
-}
 
