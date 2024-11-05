@@ -5,30 +5,53 @@ function lineBreak(father, manylb) {
 		father.appendChild(lb);
 	}
 }
-function address(){
-	let address = document.getElementById("direccion").value;
+
+function interest (){
+
+	let interest = document.getElementById("intereses").value;
+	let splitInter = interest.split(", ");
+
+	arrayInterest = ["Mercado Inmobiliario", "bolsa", "Bienes estatales"];
+	arrayInterestUser = [];
 
 
-
-
-
-
-
-
-
+	if (arrayInterest.lenght > splitInter.length ){
+		for(let i = 0; i < arrayInterest.length; i++) {
+			for(let j = 0 ; j < splitInter.length; j++){
+				if(arrayInterest[i] == splitInter[j]){
+					arrayInterestUser.push(splitInter[j]);
+				}
+			}
+		}
+	}
+	console.log(arrayInterestUser);
 }
-/*
-id.value = CALLE/ ALEJANDRO, 23, BAJO 1, 28000, MADRID, ESPAÑA
-arr = CALLE, AVENIDA, VIA, BULEVAR...
 
-split => id.value
 
-comparar splitead[0] = tipoVIA[i]
 
-splitedo[]
-*/
+function address() {
+	let address = document.getElementById("direccion").value;
+	let splittedVia = address.split("/")
+	let confirm;
 
-/* ^(?=.[A-Za-z])(?=.\d)(?=.[@$!%#?&])[A-Za-z\d@$!%*#?&]{8,20}$ */
+	arrayVia = ["CALLE", "AVENIDA", "VIA", "BULEVAR","CARRETERA"];
+
+	for (let i = 0; i < arrayVia.length; i++) {
+		if (arrayVia[i].toString().toLocaleLowerCase() == splittedVia[0].toString().toLocaleLowerCase()) {
+			confirm = true;
+		}
+	}
+	if (!confirm){
+		alert("La via no es correcta")
+	}
+
+	let restAddress = splittedVia[1].split(", ")
+	if (!(restAddress == 6)){
+		event.preventDefault();		
+		alert("El formato de dirección no es válido")
+	}
+}
+
 function forcePassword() {
 	let forceInput = document.getElementById("password").value;
 	let limitations = /^(?=.*[A-Z])(?=.*[a-z])(?=(.*\d){2,})(?=.*[@$#!%*?&])[A-Za-z\d@$#!%*?&]{8,20}$/;
@@ -42,26 +65,26 @@ function forcePassword() {
 function forceDNI() {
 	let forceInput = document.getElementById("dni").value;
 
-	if(checkDNI(forceInput) !=  true) {
+	if (checkDNI(forceInput) != true) {
 		event.preventDefault();
 		alert("Documento no válido");
 	}
 }
 
-function checkDNI(value){
+function checkDNI(value) {
 
 	let validChars = 'TRWAGMYFPDXBNJZSQVHLCKET';
 	let nifRexp = /^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]$/i;
 	let nieRexp = /^[XYZ][0-9]{7}[TRWAGMYFPDXBNJZSQVHLCKET]$/i;
 	let str = value.toString().toUpperCase();
-  
+
 	if (!nifRexp.test(str) && !nieRexp.test(str)) return false;
-  
+
 	let nie = str
 		.replace(/^[X]/, '0')
 		.replace(/^[Y]/, '1')
 		.replace(/^[Z]/, '2');
-  
+
 	let letter = str.substr(-1);
 	// Encuentra el resto de los 8 números para después localizar la letra en validChars
 	let charIndex = parseInt(nie.substr(0, 8)) % 23;
@@ -70,14 +93,14 @@ function checkDNI(value){
 	if (validChars.charAt(charIndex) === letter) return true;
 
 	return false;
-  }
+}
 
 function forceConfirmEmail() {
 	let inputEmail = document.getElementById("confirmEmail").value;
 	let inputEmail2 = document.getElementById("email").value;
 
 	if (!(inputEmail2)) {
-		return ;
+		return;
 	}
 	if (!(inputEmail == inputEmail2)) {
 		event.preventDefault();
@@ -132,6 +155,8 @@ function limitations() {
 	forceConfirmEmail();
 	forceDNI();
 	forcePassword();
+	address();
+	interest ();
 }
 
 function form() {
@@ -169,6 +194,8 @@ function form() {
 	inputDireccion.setAttribute("id", "direccion");
 	inputDireccion.setAttribute("required", true);
 	inputDireccion.setAttribute("placeholder", "Dirección");
+	let subDireccion = document.createElement("sub")
+	subDireccion.textContent = "Ejemplo: Tipo de Vía/ calle, nº, piso, CP, población, país";
 
 
 	let labelEmail = document.createElement("label");
@@ -207,8 +234,9 @@ function form() {
 	inputIntereses.setAttribute("type", "text");
 	inputIntereses.setAttribute("id", "intereses");
 	inputIntereses.setAttribute("required", true);
-	inputIntereses.setAttribute("placeholder", "Intereses");
-
+	inputIntereses.setAttribute("placeholder", "Intereses. Si eliges mas de uno separenlos con ,");
+	let subIntereses = document.createElement("sub");
+	subIntereses.textContent = "Intereses disponibles: mercado inmobiliario, bolsa, bienes estatales"
 
 	let labelPassWord = document.createElement("label");
 	labelPassWord.setAttribute("for", "password");
@@ -218,7 +246,7 @@ function form() {
 	inputPassWord.setAttribute("id", "password");
 	inputPassWord.setAttribute("required", true);
 	inputPassWord.setAttribute("placeholder", "Contraseña");
-	
+
 	let inputSend = document.createElement("input");
 	inputSend.setAttribute("type", "submit");
 	inputSend.setAttribute("value", "Enviar");
@@ -247,6 +275,7 @@ function form() {
 	crearFormulario.appendChild(divL3);
 	divL3.appendChild(labelDireccion);
 	divL3.appendChild(inputDireccion);
+	labelDireccion.appendChild(subDireccion);
 	lineBreak(crearFormulario, 1)
 
 	divL3.appendChild(labelDni); //  Agregamos el label al formulario
@@ -256,6 +285,7 @@ function form() {
 	crearFormulario.appendChild(divL4);
 	divL4.appendChild(labelIntereses);
 	divL4.appendChild(inputIntereses);
+	labelIntereses.appendChild(subIntereses);
 	//lineBreak(crearFormulario, 2);
 
 	divL4.appendChild(labelPassWord);
