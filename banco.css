@@ -44,6 +44,36 @@ form input:focus {
     outline: none;
 }
 
+/* *************** B O T Ó N *************** */
+
+/* Estilos para el botón */
+#btnSubmit {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Efecto al pasar el cursor por encima del botón */
+#btnSubmit:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Efecto al presionar el botón */
+#btnSubmit:active {
+    transform: translateY(1px);
+    background-color: #004a99;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+}
 
 
 
