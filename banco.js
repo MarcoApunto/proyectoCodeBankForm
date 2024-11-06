@@ -1,57 +1,3 @@
-function lineBreak(father, manylb) {
-
-	for (let i = 0; i < manylb; i++) {
-		let lb = document.createElement("br");
-		father.appendChild(lb);
-	}
-}
-
-function interest (){
-
-	let interest = document.getElementById("intereses").value;
-	let splitInter = interest.split(", ");
-
-	arrayInterest = ["Mercado Inmobiliario", "bolsa", "Bienes estatales"];
-	arrayInterestUser = [];
-
-
-	if (arrayInterest.lenght > splitInter.length ){
-		for(let i = 0; i < arrayInterest.length; i++) {
-			for(let j = 0 ; j < splitInter.length; j++){
-				if(arrayInterest[i] == splitInter[j]){
-					arrayInterestUser.push(splitInter[j]);
-				}
-			}
-		}
-	}
-	console.log(arrayInterestUser);
-}
-
-
-
-function address() {
-	let address = document.getElementById("direccion").value;
-	let splittedVia = address.split("/")
-	let confirm;
-
-	arrayVia = ["CALLE", "AVENIDA", "VIA", "BULEVAR","CARRETERA"];
-
-	for (let i = 0; i < arrayVia.length; i++) {
-		if (arrayVia[i].toString().toLocaleLowerCase() == splittedVia[0].toString().toLocaleLowerCase()) {
-			confirm = true;
-		}
-	}
-	if (!confirm){
-		alert("La via no es correcta")
-	}
-
-	let restAddress = splittedVia[1].split(", ")
-	if (!(restAddress == 6)){
-		event.preventDefault();		
-		alert("El formato de dirección no es válido")
-	}
-}
-
 function forcePassword() {
 	let forceInput = document.getElementById("password").value;
 	let limitations = /^(?=.*[A-Z])(?=.*[a-z])(?=(.*\d){2,})(?=.*[@$#!%*?&])[A-Za-z\d@$#!%*?&]{8,20}$/;
@@ -62,13 +8,30 @@ function forcePassword() {
 	}
 }
 
-function forceDNI() {
-	let forceInput = document.getElementById("dni").value;
+function forceInterest() {
 
-	if (checkDNI(forceInput) != true) {
-		event.preventDefault();
-		alert("Documento no válido");
+	let interest = document.getElementById("intereses").value;
+	let splitInter = interest.split(", ");
+
+	let arrayInterest = ["Mercado Inmobiliario", "bolsa", "Bienes estatales"];
+	let arrayInterestUser = [];
+	let confirm = false;
+
+	for (let i = 0; i < arrayInterest.length; i++) {
+		for (let j = 0; j < splitInter.length; j++) {
+			if (arrayInterest[i].toString().toLocaleLowerCase() == splitInter[j].toString().toLocaleLowerCase()) {
+				// Aquí se guardará la coincidencia del usario y el sistema.
+				arrayInterestUser.push(splitInter[j]);
+				confirm = true;
+			}
+		}
 	}
+
+	if (confirm != true) {
+		event.preventDefault();
+		alert("Inserte al menos uno de los citados y como en el ejemplo. Gracias y siento las molestias.");
+	}
+	//console.log(filteredInterest);
 }
 
 function checkDNI(value) {
@@ -95,13 +58,44 @@ function checkDNI(value) {
 	return false;
 }
 
+function forceDNI() {
+	let forceInput = document.getElementById("dni").value;
+
+	if (checkDNI(forceInput) != true) {
+		event.preventDefault();
+		alert("Documento no válido");
+	}
+}
+
+function forceAddress() {
+	let address = document.getElementById("direccion").value;
+	// Spliteamos valor insertado en el campo direccion, splittedVia[0] = Tipo de Via y splittedVia[1] = lo restante
+	let splittedVia = address.split("/ ")
+	let confirm = false;
+	let arrayVia = ["CALLE", "AVENIDA", "VIA", "BULEVAR", "CARRETERA"];
+
+	// Interactuamos con splittedVia[0]
+	for (let i = 0; i < arrayVia.length; i++) {
+		if (arrayVia[i].toString().toLocaleLowerCase() == splittedVia[0].toString().toLocaleLowerCase()) {
+			confirm = true;
+		}
+	}
+	if (confirm == false) {
+		alert("La via no es correcta")
+	}
+
+	// Interactuamos con splittedVia[1]
+	let restAddress = splittedVia[1].split(", ")
+	if (restAddress.length != 6) {
+		event.preventDefault();
+		alert("El formato de dirección no es válido")
+	}
+}
+
 function forceConfirmEmail() {
 	let inputEmail = document.getElementById("confirmEmail").value;
 	let inputEmail2 = document.getElementById("email").value;
 
-	if (!(inputEmail2)) {
-		return;
-	}
 	if (!(inputEmail == inputEmail2)) {
 		event.preventDefault();
 		alert("Lo correos no coinciden.");
@@ -127,8 +121,12 @@ function forceSurname() {
 	}
 	for (let i = 0; i < forceInput.length; i++) {
 		if (!(isNaN(forceInput[i]))) {
-			alert("No es válido un número en apellido");
-			return;
+			if (forceInput[i] == ' ', '-', '\'') {
+				return ;
+			} else {
+				alert("No es válido un número en apellido");
+				return ;
+			}
 		}
 	}
 }
@@ -142,8 +140,12 @@ function forceName() {
 	}
 	for (let i = 0; i < forceInput.length; i++) {
 		if (!(isNaN(forceInput[i]))) {
-			alert("No es válido un número en nombre");
-			return;
+			if (forceInput[i] == ' ', '-', '\'') {
+				return ;
+			} else {
+				alert("No es válido un número en apellido");
+				return ;
+			}
 		}
 	}
 }
@@ -153,10 +155,18 @@ function limitations() {
 	forceSurname();
 	forceEmail();
 	forceConfirmEmail();
+	forceAddress();
 	forceDNI();
+	forceInterest();
 	forcePassword();
-	address();
-	interest ();
+}
+
+function lineBreak(father, manylb) {
+
+	for (let i = 0; i < manylb; i++) {
+		let lb = document.createElement("br");
+		father.appendChild(lb);
+	}
 }
 
 function form() {
@@ -166,7 +176,6 @@ function form() {
 	let divL3 = document.createElement("div");
 	let divL4 = document.createElement("div");
 
-
 	let labelName = document.createElement("label"); // Se crea el LABEL
 	labelName.setAttribute("for", "name")//Aqui se ponen los atributos del label.
 	let inputName = document.createElement("input"); //  Creamos un input
@@ -174,8 +183,6 @@ function form() {
 	inputName.setAttribute("id", "name");
 	inputName.setAttribute("required", true);
 	inputName.setAttribute("placeholder", "Nombre");
-
-
 
 	let labelApellido = document.createElement("label");
 	labelApellido.setAttribute("for", "apellido")
@@ -294,12 +301,7 @@ function form() {
 
 	crearFormulario.appendChild(inputSend);
 
-
-
 	document.body.appendChild(crearFormulario);  //  Agregamos el formulario al body
-
-
-
 }
 
 form();
