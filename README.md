@@ -1,6 +1,6 @@
 # Proyecto equipo: HTML, CSS y JS   
 
-## Ejercicio 15_2
+### Ejercicio 15_2 realizado por [Rolando Cepeda](https://github.com/Rolando-Cepeda/), [Cosmin Criveanu](https://github.com/CosminCriveanu), [Javier Arias](https://github.com/Javrod80/), [Marco Ferreira](https://github.com/MarcoApunto)
 
 Vamos a desarrollar una parte del Front de una aplicación para un banco: 
 
