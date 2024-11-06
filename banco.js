@@ -122,10 +122,10 @@ function forceSurname() {
 	for (let i = 0; i < forceInput.length; i++) {
 		if (!(isNaN(forceInput[i]))) {
 			if (forceInput[i] == ' ', '-', '\'') {
-				return ;
+				return;
 			} else {
 				alert("No es válido un número en apellido");
-				return ;
+				return;
 			}
 		}
 	}
@@ -141,10 +141,10 @@ function forceName() {
 	for (let i = 0; i < forceInput.length; i++) {
 		if (!(isNaN(forceInput[i]))) {
 			if (forceInput[i] == ' ', '-', '\'') {
-				return ;
+				return;
 			} else {
 				alert("No es válido un número en apellido");
-				return ;
+				return;
 			}
 		}
 	}
@@ -169,12 +169,18 @@ function lineBreak(father, manylb) {
 	}
 }
 
+
+
 function form() {
 	let crearFormulario = document.createElement("form");
 	let divL1 = document.createElement("div");
 	let divL2 = document.createElement("div");
 	let divL3 = document.createElement("div");
 	let divL4 = document.createElement("div");
+
+	let etiquetaTitulo = document.createElement("h1");
+	let titulo = document.createTextNode("CodeBank");
+
 
 	let labelName = document.createElement("label"); // Se crea el LABEL
 	labelName.setAttribute("for", "name")//Aqui se ponen los atributos del label.
@@ -261,6 +267,9 @@ function form() {
 	inputSend.setAttribute("onclick", "limitations()")
 
 	// Creamos los APPENDCHILD
+	etiquetaTitulo.appendChild(titulo);
+	crearFormulario.appendChild(etiquetaTitulo);
+
 	crearFormulario.appendChild(divL1);
 	divL1.appendChild(labelName); //  Agregamos el label al formulario
 	divL1.appendChild(inputName); //  Agregamos el input al formulario

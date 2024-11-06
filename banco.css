@@ -1,81 +1,84 @@
 /* Centrar el formulario en el centro de la página */
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #7ebcfa;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+	font-family: Arial, sans-serif;
+	background-color: #7ebcfa;
 }
 
 /* Estilos para el formulario */
 form {
-    width: 100%;
-    max-width: 500px;
-    padding: 20px;
-    background-color: #ffffff;
-    box-shadow: 1 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+	width: 100%;
+	max-width: 500px;
+	padding: 20px;
+	background-color: #ffffff;
+	box-shadow: 1 4px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
+}
+
+h1 {
+	color: #007BFF;
+	text-shadow: 3px 2px 4px rgba(0, 0, 0, 0.26);
 }
 
 /* Estilos para los contenedores de cada grupo */
 form div {
-    margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 /* Estilos para los campos de entrada */
 form input[type="text"],
 form input[type="email"],
 form input[type="password"] {
-    width: 95%;
-    padding: 10px;
+	width: 95%;
+	padding: 10px;
 	margin-bottom: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-    transition: border-color 0.5s ease;
+	font-size: 16px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+	transition: border-color 0.5s ease;
 }
 
 /* Estilo de enfoque en los campos de entrada */
 form input:focus {
-    border-color: #007BFF;
-    outline: none;
+	border-color: #007BFF;
+	outline: none;
 }
 
 /* *************** B O T Ó N *************** */
 
 /* Estilos para el botón */
 #btnSubmit {
-    width: 100%;
-    padding: 12px 20px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #ffffff;
-    background-color: #007BFF;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+	width: 100%;
+	padding: 12px 20px;
+	font-size: 18px;
+	font-weight: bold;
+	color: #ffffff;
+	background-color: #007BFF;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background-color 0.3s ease, transform 0.3s ease;
+	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Efecto al pasar el cursor por encima del botón */
 #btnSubmit:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
-    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+	background-color: #0056b3;
+	transform: translateY(-2px);
+	box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* Efecto al presionar el botón */
 #btnSubmit:active {
-    transform: translateY(1px);
-    background-color: #004a99;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+	transform: translateY(1px);
+	background-color: #004a99;
+	box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
 }
 
 
-
-
-
+/* *************** T Í T U L O*************** */
